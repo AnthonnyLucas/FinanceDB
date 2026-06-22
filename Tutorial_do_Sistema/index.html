@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tour Guiado — Sistema Admin</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <!-- Tela Inicial do Tour -->
+    <div id="tourWelcome" class="tour-overlay active">
+        <div class="tour-card">
+            <h1>Bem-vindo ao Tour Guiado do Painel Administrativo</h1>
+            <p>Neste tour interativo, você vai aprender como usar a interface real do sistema para gerenciar o Banco de Dados (DML, DDL, DCL).</p>
+            <button id="startTourBtn" class="btn btn-primary">Iniciar Tour</button>
+        </div>
+    </div>
+
+    <!-- O Layout Fake do Admin -->
+    <div class="admin-layout" id="adminApp">
+        <!-- Sidebar Fake -->
+        <aside class="sidebar">
+            <div class="logo">FinanceDB</div>
+            <nav>
+                <a href="#" class="nav-item">Dashboard</a>
+                <a href="#" class="nav-item">Lançamentos</a>
+                <a href="#" class="nav-item active">Banco de Dados (Admin)</a>
+            </nav>
+        </aside>
+
+        <!-- Main Fake -->
+        <main class="main-content">
+            <header class="top-header">
+                <h2>Administração do Banco de Dados</h2>
+            </header>
+
+            <div class="page-container">
+                <!-- Abas -->
+                <div class="admin-tabs" id="tour-tabs">
+                    <button class="admin-tab active" data-tab="dml" id="tab-dml">DML (Dados)</button>
+                    <button class="admin-tab" data-tab="ddl" id="tab-ddl">DDL (Estrutura)</button>
+                    <button class="admin-tab" data-tab="dcl" id="tab-dcl">DCL (Permissões)</button>
+                </div>
+
+                <!-- Conteúdo DML -->
+                <div class="admin-tab-content" id="content-dml">
+                    <div class="dml-toolbar">
+                        <select class="dml-select" id="dml-select-table">
+                            <option>Selecione uma tabela...</option>
+                            <option>usuario</option>
+                            <option>lancamento</option>
+                        </select>
+                        <button class="btn-admin-primary" id="dml-btn-insert">Novo Registro</button>
+                    </div>
+                    <div class="dml-grid">
+                        <table class="dml-table">
+                            <thead>
+                                <tr><th>id</th><th>nome</th><th>email</th><th>Ações</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td><td>João Silva</td><td>joao@email.com</td>
+                                    <td>
+                                        <button class="action-btn edit-btn" id="dml-btn-edit">✎</button>
+                                        <button class="action-btn delete-btn" id="dml-btn-delete">✕</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Conteúdo DDL (Oculto inicialmente) -->
+                <div class="admin-tab-content hidden" id="content-ddl">
+                    <div class="ddl-layout">
+                        <div class="ddl-sidebar">
+                            <h4>Tabelas</h4>
+                            <div class="ddl-table-list">
+                                <div class="ddl-table-item">usuario</div>
+                                <div class="ddl-table-item">conta</div>
+                            </div>
+                        </div>
+                        <div class="ddl-main">
+                            <button class="btn-admin-primary" id="ddl-btn-create">CREATE TABLE</button>
+                            <div style="margin-top:20px; color:#94a3b8">Selecione uma tabela para alterar a estrutura.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Conteúdo DCL (Oculto inicialmente) -->
+                <div class="admin-tab-content hidden" id="content-dcl">
+                    <div class="dcl-header">
+                        <h3>Roles do PostgreSQL</h3>
+                        <button class="btn-admin-primary" id="dcl-btn-create">Novo Role</button>
+                    </div>
+                    <div class="dcl-roles-grid">
+                        <div class="dcl-role-card" id="dcl-role-card">
+                            <div class="role-name">app_user</div>
+                            <button class="btn-admin-ghost" id="dcl-btn-priv">Gerenciar Privilégios</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Tooltip do Tour Guiado -->
+    <div id="tourTooltip" class="tour-tooltip hidden">
+        <h4 id="ttTitle">Título</h4>
+        <p id="ttDesc">Descrição</p>
+        <button id="ttNextBtn" class="btn btn-sm btn-primary">Entendido</button>
+    </div>
+
+    <!-- Modais Fake (Aparecem durante o tour) -->
+    <div class="fake-modal-overlay hidden" id="fakeModal">
+        <div class="fake-modal">
+            <h3 id="fmTitle">Modal Title</h3>
+            <div id="fmBody" style="margin:20px 0; color:#cbd5e1;"></div>
+            <button class="btn btn-primary" id="fmCloseBtn">Fechar (Apenas Simulação)</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

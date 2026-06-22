@@ -1,0 +1,101 @@
+:root {
+    --bg-app: #0f172a;
+    --bg-sidebar: #1e293b;
+    --bg-card: #1e293b;
+    --primary: #10d9a0;
+    --primary-hover: #0ca678;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --border: #334155;
+    --danger: #ef4444;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+
+body { background: var(--bg-app); color: var(--text-main); overflow: hidden; }
+
+/* ── Tour Overlay ── */
+.tour-overlay {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.8); z-index: 9999; display: flex;
+    justify-content: center; align-items: center; opacity: 0; pointer-events: none;
+    transition: opacity 0.3s;
+}
+.tour-overlay.active { opacity: 1; pointer-events: auto; }
+
+.tour-card {
+    background: var(--bg-card); padding: 40px; border-radius: 12px;
+    border: 1px solid var(--primary); text-align: center; max-width: 500px;
+}
+.tour-card h1 { color: var(--primary); margin-bottom: 20px; font-size: 24px; }
+.tour-card p { color: var(--text-muted); margin-bottom: 30px; line-height: 1.6; }
+
+/* ── Fake Admin App ── */
+.admin-layout { display: flex; height: 100vh; filter: blur(0px); transition: filter 0.3s; }
+.tour-active .admin-layout { /* highlight effect done via spotlight */ }
+
+.sidebar { width: 260px; background: var(--bg-sidebar); border-right: 1px solid var(--border); padding: 20px; }
+.logo { font-size: 20px; font-weight: 700; color: var(--primary); margin-bottom: 40px; }
+.nav-item { display: block; padding: 12px; color: var(--text-muted); text-decoration: none; border-radius: 8px; margin-bottom: 8px; }
+.nav-item.active { background: rgba(16, 217, 160, 0.1); color: var(--primary); }
+
+.main-content { flex: 1; display: flex; flex-direction: column; }
+.top-header { padding: 24px 40px; border-bottom: 1px solid var(--border); }
+.page-container { padding: 40px; flex: 1; overflow-y: auto; }
+
+.admin-tabs { display: flex; gap: 8px; border-bottom: 1px solid var(--border); margin-bottom: 24px; }
+.admin-tab { background: none; border: none; padding: 12px 24px; color: var(--text-muted); cursor: pointer; border-bottom: 2px solid transparent; font-size: 14px; font-weight: 500; }
+.admin-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+
+.hidden { display: none !important; }
+
+/* DML Fake */
+.dml-toolbar { display: flex; justify-content: space-between; margin-bottom: 20px; }
+.dml-select { padding: 10px; background: var(--bg-app); border: 1px solid var(--border); color: #fff; border-radius: 6px; width: 250px; }
+.btn-admin-primary { background: var(--primary); color: #000; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 600; cursor: pointer; }
+.dml-table { width: 100%; border-collapse: collapse; background: var(--bg-card); border-radius: 8px; overflow: hidden; }
+.dml-table th, .dml-table td { padding: 14px; text-align: left; border-bottom: 1px solid var(--border); }
+.action-btn { background: none; border: none; cursor: pointer; margin-right: 10px; font-size: 16px; }
+.edit-btn { color: var(--primary); }
+.delete-btn { color: var(--danger); }
+
+/* DDL Fake */
+.ddl-layout { display: flex; gap: 24px; }
+.ddl-sidebar { width: 200px; background: var(--bg-card); padding: 16px; border-radius: 8px; border: 1px solid var(--border); }
+.ddl-table-item { padding: 10px; border-bottom: 1px solid var(--border); color: var(--text-muted); }
+
+/* DCL Fake */
+.dcl-header { display: flex; justify-content: space-between; margin-bottom: 20px; }
+.dcl-role-card { background: var(--bg-card); padding: 20px; border: 1px solid var(--border); border-radius: 8px; display: flex; justify-content: space-between; align-items: center; }
+.btn-admin-ghost { background: transparent; color: var(--text-main); border: 1px solid var(--border); padding: 8px 16px; border-radius: 6px; cursor: pointer; }
+
+/* ── Tooltip UI ── */
+.tour-tooltip {
+    position: absolute; background: #fff; color: #0f172a; padding: 20px; border-radius: 8px;
+    width: 300px; z-index: 10000; box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    transition: all 0.3s;
+}
+.tour-tooltip h4 { color: var(--primary); margin-bottom: 10px; }
+.tour-tooltip p { font-size: 14px; margin-bottom: 15px; line-height: 1.5; color: #334155; }
+.btn { cursor: pointer; border-radius: 6px; font-weight: 600; border: none; }
+.btn-primary { background: var(--primary); color: #000; padding: 12px 24px; }
+.btn-sm { padding: 8px 16px; }
+
+/* Spotlight Elemento */
+.tour-highlight {
+    position: relative;
+    z-index: 9998;
+    box-shadow: 0 0 0 9999px rgba(0,0,0,0.7);
+    border-radius: 4px;
+}
+
+/* Modals */
+.fake-modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.8); z-index: 10001; display: flex;
+    justify-content: center; align-items: center;
+}
+.fake-modal {
+    background: var(--bg-card); border: 1px solid var(--border);
+    padding: 30px; border-radius: 8px; width: 400px; text-align: center;
+}

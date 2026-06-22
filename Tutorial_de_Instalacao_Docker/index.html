@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docker Fácil — Tutorial de Instalação</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-glow"></div>
+    
+    <main class="container">
+        <header>
+            <div class="badge">Automação</div>
+            <h1>Instalação Expressa com <span>Docker</span></h1>
+            <p>Aprenda a subir todo o ambiente de banco de dados e servidor em poucos segundos.</p>
+        </header>
+
+        <section class="tutorial-card">
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+
+            <div class="step-indicator">
+                Passo <span id="currentStepNum">1</span> de <span id="totalStepsNum">4</span>
+            </div>
+
+            <div class="content-area">
+                <h2 id="stepTitle">Instalando o Docker</h2>
+                <p id="stepDescription">Para começar, precisamos do Docker na sua máquina. Baixe o Docker Desktop e instale.</p>
+                
+                <div class="terminal-window" id="terminalWindow" style="display: none;">
+                    <div class="terminal-header">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                        <span class="terminal-title">powershell</span>
+                    </div>
+                    <div class="terminal-body">
+                        <code id="commandCode"></code>
+                        <button id="copyBtn" class="copy-btn" title="Copiar Comando">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button id="prevBtn" class="btn btn-secondary" disabled>Anterior</button>
+                <button id="nextBtn" class="btn btn-primary">Próximo</button>
+            </div>
+        </section>
+        
+        <div class="success-screen" id="successScreen">
+            <div class="icon-success">🚀</div>
+            <h2>Ambiente Pronto!</h2>
+            <p>A aplicação, o Banco de Dados e o pgAdmin foram inicializados.</p>
+            <div class="action-links" style="display: flex; flex-direction: column; gap: 10px;">
+                <a href="http://localhost:3000" target="_blank" class="btn btn-primary">Acessar a Aplicação Web</a>
+                <a href="http://localhost:5050" target="_blank" class="btn btn-secondary" style="border-color: #2496ED; color: #2496ED;">Acessar o pgAdmin (5050)</a>
+                <button id="restartBtn" class="btn btn-secondary" style="margin-top:10px;">Rever Tutorial</button>
+            </div>
+            <p style="font-size:12px; color:var(--text-muted); margin-top:20px;">
+                *Login pgAdmin: admin@financedb.com / admin
+            </p>
+        </div>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

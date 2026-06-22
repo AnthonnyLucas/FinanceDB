@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Sistema de Controle Financeiro Pessoal — demonstração do banco de dados PostgreSQL" />
+  <title>FinanceDB — Controle Financeiro Pessoal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-layout">
+
+    <!-- ═══════════════════════════════════════
+         SIDEBAR
+    ════════════════════════════════════════ -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">
+          <div class="logo-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <path d="M12 2L2 7l10 5 10-5-10-5z" stroke="#10d9a0" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M2 17l10 5 10-5" stroke="#10d9a0" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M2 12l10 5 10-5" stroke="#10d9a0" stroke-width="2" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="logo-text">
+            <span class="logo-name">FinanceDB</span>
+            <span class="logo-sub">PostgreSQL Demo</span>
+          </div>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <span class="nav-section-label">Principal</span>
+        <a href="#" class="nav-item active" data-page="dashboard" id="nav-dashboard">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          </span>
+          <span class="nav-label">Dashboard</span>
+        </a>
+        <a href="#" class="nav-item" data-page="contas" id="nav-contas">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+          </span>
+          <span class="nav-label">Contas</span>
+        </a>
+        <a href="#" class="nav-item" data-page="lancamentos" id="nav-lancamentos">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3l4 4-4 4"/><path d="M3 7h18"/><path d="M7 21l-4-4 4-4"/><path d="M21 17H3"/></svg>
+          </span>
+          <span class="nav-label">Lançamentos</span>
+        </a>
+        <a href="#" class="nav-item" data-page="cartoes" id="nav-cartoes">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><path d="M1 10h22"/></svg>
+          </span>
+          <span class="nav-label">Cartões</span>
+        </a>
+
+        <span class="nav-section-label">Finanças</span>
+        <a href="#" class="nav-item" data-page="investimentos" id="nav-investimentos">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+          </span>
+          <span class="nav-label">Investimentos</span>
+        </a>
+        <a href="#" class="nav-item" data-page="metas" id="nav-metas">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+          </span>
+          <span class="nav-label">Metas</span>
+        </a>
+
+        <span class="nav-section-label">Organização</span>
+        <a href="#" class="nav-item" data-page="categorias" id="nav-categorias">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+          </span>
+          <span class="nav-label">Categorias & Tags</span>
+        </a>
+        <a href="#" class="nav-item" data-page="usuarios" id="nav-usuarios">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          </span>
+          <span class="nav-label">Usuários</span>
+        </a>
+        <a href="#" class="nav-item" data-page="regras" id="nav-regras">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M21 12h-2M19.07 19.07l-1.41-1.41M12 21v-2M4.93 19.07l1.41-1.41M3 12h2M4.93 4.93l1.41 1.41M12 3v2"/></svg>
+          </span>
+          <span class="nav-label">Regras & Projetos</span>
+        </a>
+
+        <span class="nav-section-label">Administração</span>
+        <a href="#" class="nav-item" data-page="admin-db" id="nav-admin-db">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+          </span>
+          <span class="nav-label">Banco de Dados</span>
+        </a>
+        <a href="#" class="nav-item" data-page="admin-users" id="nav-admin-users">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M20 8v6M23 11h-6"/></svg>
+          </span>
+          <span class="nav-label">Dados de Usuários</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-profile" id="user-profile-area">
+          <div class="user-avatar">...</div>
+          <div class="user-info">
+            <span class="user-name">Carregando...</span>
+            <span class="user-plan">...</span>
+          </div>
+          <button class="user-switch-btn" id="user-switch-btn" title="Alternar conta">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="1 4 1 10 7 10"/>
+              <polyline points="23 20 23 14 17 14"/>
+              <path d="M20.49 9A9 9 0 005.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 013.51 15"/>
+            </svg>
+          </button>
+        </div>
+        <!-- Dropdown de seleção de conta -->
+        <div class="user-switch-dropdown" id="user-switch-dropdown">
+          <div class="user-switch-header">
+            <span class="user-switch-title">Alternar Conta</span>
+            <span class="user-switch-close" id="user-switch-close">&times;</span>
+          </div>
+          <div class="user-switch-list" id="user-switch-list">
+            <!-- Preenchido dinamicamente -->
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ═══════════════════════════════════════
+         MAIN
+    ════════════════════════════════════════ -->
+    <main class="main-content">
+
+      <!-- TOP HEADER -->
+      <header class="top-header">
+        <div class="header-left">
+          <h1 class="page-title" id="page-title">Dashboard</h1>
+          <span class="page-subtitle" id="page-subtitle">Visão geral das suas finanças</span>
+        </div>
+        <div class="header-right">
+          <div class="db-badge">
+            <span class="db-dot"></span>
+            PostgreSQL 16 · dbfiddle.dev
+          </div>
+          <div class="notif-btn" id="notif-bell">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+            <span class="notif-count">1</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- PAGE CONTENT -->
+      <div class="page-container">
+
+        <!-- ──────────── DASHBOARD ──────────── -->
+        <div class="page active" id="page-dashboard">
+          <div class="kpi-grid">
+            <!-- KPIs preenchidos dinamicamente por renderDashboardKPIs() -->
+          </div>
+
+          <div class="charts-row">
+            <div class="chart-card chart-card-wide">
+              <div class="chart-header">
+                <h3>Receitas vs Despesas</h3>
+                <span class="chart-period">Maio 2025</span>
+              </div>
+              <div class="chart-wrapper"><canvas id="chart-mensal"></canvas></div>
+            </div>
+            <div class="chart-card">
+              <div class="chart-header">
+                <h3>Despesas por Categoria</h3>
+                <span class="chart-period">Maio 2025</span>
+              </div>
+              <div class="chart-wrapper chart-doughnut"><canvas id="chart-categorias"></canvas></div>
+            </div>
+          </div>
+
+          <div class="two-col-row">
+            <div class="section-card">
+              <div class="section-header">
+                <h3>Últimos Lançamentos</h3>
+                <button class="btn-link" data-page="lancamentos">Ver todos →</button>
+              </div>
+              <div id="recent-lancamentos"></div>
+            </div>
+            <div class="section-card">
+              <div class="section-header">
+                <h3>Alertas & Lembretes</h3>
+              </div>
+              <div class="alerts-list">
+                <!-- Alertas preenchidos dinamicamente por renderDashboardAlertas() -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ──────────── CONTAS ──────────── -->
+        <div class="page" id="page-contas">
+          <div class="accounts-grid" id="accounts-grid"></div>
+          <div class="section-card" style="margin-top:24px">
+            <div class="section-header">
+              <h3>Dados Open Finance — Conta Bancária</h3>
+              <span class="badge badge-success">
+                <span class="db-dot" style="margin-right:4px;width:6px;height:6px"></span>Sincronizado
+              </span>
+            </div>
+            <div id="conta-bancaria-detail"></div>
+          </div>
+        </div>
+
+        <!-- ──────────── LANÇAMENTOS ──────────── -->
+        <div class="page" id="page-lancamentos">
+          <div class="filters-bar">
+            <div class="filter-group">
+              <button class="filter-btn active" data-filter="todos">Todos</button>
+              <button class="filter-btn" data-filter="receita">Receitas</button>
+              <button class="filter-btn" data-filter="despesa">Despesas</button>
+            </div>
+            <div class="filter-stats" id="filter-stats"></div>
+          </div>
+          <div class="section-card">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Data</th>
+                  <th>Descrição</th>
+                  <th>Categoria</th>
+                  <th>Tags</th>
+                  <th>Conta</th>
+                  <th>Origem</th>
+                  <th>Valor</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="lancamentos-tbody"></tbody>
+            </table>
+          </div>
+          <div class="section-card" style="margin-top:24px">
+            <div class="section-header"><h3>Rateio por Centro de Custo</h3></div>
+            <div id="centro-rateio"></div>
+          </div>
+        </div>
+
+        <!-- ──────────── CARTÕES ──────────── -->
+        <div class="page" id="page-cartoes">
+          <div id="cartoes-content"></div>
+        </div>
+
+        <!-- ──────────── INVESTIMENTOS ──────────── -->
+        <div class="page" id="page-investimentos">
+          <div class="kpi-grid" id="invest-kpi"></div>
+          <div class="charts-row" style="margin-top:24px">
+            <div class="chart-card chart-card-wide">
+              <div class="chart-header"><h3>Carteira de Ativos</h3></div>
+              <div id="invest-table-wrap"></div>
+            </div>
+            <div class="chart-card">
+              <div class="chart-header"><h3>Composição</h3></div>
+              <div class="chart-wrapper chart-doughnut"><canvas id="chart-invest"></canvas></div>
+            </div>
+          </div>
+          <div class="section-card" style="margin-top:24px">
+            <div class="section-header"><h3>Histórico de Operações</h3></div>
+            <div id="operacoes-list"></div>
+          </div>
+        </div>
+
+        <!-- ──────────── METAS ──────────── -->
+        <div class="page" id="page-metas">
+          <div class="metas-grid" id="metas-grid"></div>
+        </div>
+
+        <!-- ──────────── CATEGORIAS ──────────── -->
+        <div class="page" id="page-categorias">
+          <div class="two-col-row">
+            <div class="section-card">
+              <div class="section-header">
+                <h3>Categorias Padrão</h3>
+                <span class="badge badge-info">Sistema Global</span>
+              </div>
+              <div id="cat-padrao"></div>
+            </div>
+            <div class="section-card">
+              <div class="section-header">
+                <h3>Categorias Personalizadas</h3>
+                <span class="badge badge-purple">Carregando...</span>
+              </div>
+              <div id="cat-custom"></div>
+            </div>
+          </div>
+          <div class="section-card" style="margin-top:24px">
+            <div class="section-header"><h3>Tags do Usuário</h3></div>
+            <div id="tags-list"></div>
+          </div>
+        </div>
+
+        <!-- ──────────── USUÁRIOS ──────────── -->
+        <div class="page" id="page-usuarios">
+          <div id="usuarios-layout"></div>
+        </div>
+
+        <!-- ──────────── REGRAS ──────────── -->
+        <div class="page" id="page-regras">
+          <div class="two-col-row">
+            <div class="section-card">
+              <div class="section-header">
+                <h3>Regras de Classificação Automática</h3>
+                <span class="badge badge-success">2 ativas</span>
+              </div>
+              <div id="regras-list"></div>
+            </div>
+            <div class="section-card">
+              <div class="section-header"><h3>Projetos Financeiros</h3></div>
+              <div id="projetos-list"></div>
+            </div>
+          </div>
+          <div class="section-card" style="margin-top:24px">
+            <div class="section-header"><h3>Centros de Custo</h3></div>
+            <div id="centros-list"></div>
+          </div>
+          <div class="section-card" style="margin-top:24px">
+            <div class="section-header"><h3>Lembretes Ativos</h3></div>
+            <div id="lembretes-list"></div>
+          </div>
+        </div>
+
+        <!-- ──────────── ADMIN: BANCO DE DADOS ──────────── -->
+        <div class="page" id="page-admin-db"></div>
+
+        <!-- ──────────── ADMIN: DADOS DE USUÁRIOS ──────────── -->
+        <div class="page" id="page-admin-users"></div>
+
+      </div><!-- /page-container -->
+    </main>
+  </div>
+
+  <script src="api.js"></script>
+  <script src="admin-auth.js"></script>
+  <script src="admin-db.js"></script>
+  <script src="admin-users.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
